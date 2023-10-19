@@ -14,6 +14,9 @@ namespace Making_a_Class
         private string _email;
         private int _studentId;
         private int _age;
+
+        // Constructor
+
         public Student(string firstName, string lastName)
         {
             this._firstName = firstName.ToUpper();
@@ -22,6 +25,9 @@ namespace Making_a_Class
             this._age = generator.Next(14, 19);
             GenerateEmail();
         }
+
+        // Getter, Setters
+
         public string FirstName
         {
             get
@@ -76,15 +82,20 @@ namespace Making_a_Class
             }
 
         }
+        
+        // Methods
+
         public override string ToString()
         {
             return _firstName + " " + _lastName;
         }
+
         public void ResetStudentNumber()
         {
             this._studentId = generator.Next(100, 1000);
             GenerateEmail();
         }
+
         private void GenerateEmail()
         {
             string first, last;
@@ -102,6 +113,7 @@ namespace Making_a_Class
             _email = first + last + (_studentId + "").Substring(3) + "@ICS4U.com";
 
         }
+
         public override bool Equals(object obj)
         {
             Student student = obj as Student; //cast obj to Student
@@ -110,7 +122,8 @@ namespace Making_a_Class
             return this.FirstName == student.FirstName && this.LastName == student.LastName && this.StudentNumber == student.StudentNumber;
 
         }
-        public int CompareTo(Student that)
+
+        public int CompareTo(Student that) // Sort()
         {
             if (this.LastName.CompareTo(that.LastName) == 0) //If last names are equal, compares first names
                 return this.FirstName.CompareTo(that.FirstName);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace Classes___Assignment
             List<Student> students = new List<Student>();
             char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-            string fName, lName;
+            string fName = "", lName = "";
             int selection = 0, studentIndex = 0;
-            bool quit = false, exists = false, validInput = false;
+            bool quit = false, exists = false, validInput = false, newInput = true;
 
             students.Add(new Student("Andrew", "Monteith"));
             students.Add(new Student("Jack", "Eitel"));
@@ -84,7 +85,7 @@ namespace Classes___Assignment
 
                         if (exists == true)
                         {
-                            Console.WriteLine($"The Student you have entered is: {fName} {lName}.");
+                            Console.WriteLine($"The Student you have entered is: {students[studentIndex]}.");
                             Console.WriteLine($"{fName} is {students[studentIndex].StudentAge} years old.");
                             Console.WriteLine($"Their student number is {students[studentIndex].StudentNumber}.");
                             Console.WriteLine($"Their email is {students[studentIndex].Email}.");
@@ -96,14 +97,94 @@ namespace Classes___Assignment
                     }
                     else if (selection == 3)
                     {
-                        Console.Write("Enter the first Name of the new Student: ");
-                        fName = Console.ReadLine().Trim().ToUpper();
-   
+                        
+                        Console.WriteLine();
+                        Console.Write("Enter the First Name of the new Student: ");
 
+                        while (validInput == false)
+                        {
+                            fName = Console.ReadLine().Trim().ToUpper();
+
+                            for (int i = 0; i < fName.Length; i++)
+                            {
+                                if (!alphabet.Contains(fName[i]))
+                                {
+                                    Console.Write("Error, Invalid Input in first name, re-enter input: ");
+                                    validInput = true;
+                                }                                  
+                            }
+
+
+                            if (!validInput)
+                            {
+                                validInput = true;
+                            }
+                            else
+                            {
+                                validInput = false;
+                            }
+
+                        }
+                        validInput = false;
+
+                        Console.Write("Enter the Last Name of the new Student: ");
+
+                        while (validInput == false)
+                        {
+                            lName = Console.ReadLine().Trim().ToUpper();
+
+                            for (int i = 0; i < lName.Length; i++)
+                            {
+                                if (!alphabet.Contains(lName[i]))
+                                {
+                                    Console.Write("Error, Invalid Input in Last name, re-enter input: ");
+                                    validInput = true;
+                                }
+                            }
+
+                            if (!validInput)
+                            {
+                                validInput = true;
+                            }
+                            else
+                            {
+                                validInput = false;
+                            }
+
+                        }
+                        validInput = false;
+
+                        newInput = true;
+
+                        for (int i = 0; i < students.Count(); i++)
+                        {
+                            if (lName.Equals(students[i].LastName) && fName.Equals(students[i].FirstName))
+                            {
+                                newInput = false;
+                            }
+                        }
+
+                        if (newInput == true)
+                        {
+                            students.Add(new Student(fName, lName));
+                            Console.WriteLine("Student Added");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Student Already Exists, Student Will not be Added.");
+                        }    
                     }
                     else if (selection == 4)
                     {
+                        Console.WriteLine();
+                        Console.WriteLine("Which student would you like to remove: ");
 
+                        for (int i = 1; i < students.Count() + 1; i++)
+                        {
+                            Console.WriteLine($"{i}. {students[i - 1]}");
+                        }
+
+                        Console.WriteLine();
                     }
                     else if (selection == 5)
                     {
