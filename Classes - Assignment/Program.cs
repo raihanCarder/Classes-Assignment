@@ -18,7 +18,7 @@ namespace Classes___Assignment
             char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
             string fName = "", lName = "";
-            int selection = 0, studentIndex = 0;
+            int selection = 0, studentIndex = 0, studentRemove = 0, editSelection = 0, studentEdit = 0;
             bool quit = false, exists = false, validInput = false, newInput = true;
 
             students.Add(new Student("Andrew", "Monteith"));
@@ -40,7 +40,7 @@ namespace Classes___Assignment
                 Console.WriteLine("3. Add a Student");
                 Console.WriteLine("4. Remove a student");
                 Console.WriteLine("5. Search for a student");
-                Console.WriteLine("6. xxx");
+                Console.WriteLine("6. Edit a Student");
                 Console.WriteLine("7. Sort Students by Last Name");
                 Console.WriteLine("8. Quit");
 
@@ -97,7 +97,7 @@ namespace Classes___Assignment
                     }
                     else if (selection == 3)
                     {
-                        
+
                         Console.WriteLine();
                         Console.Write("Enter the First Name of the new Student: ");
 
@@ -111,7 +111,7 @@ namespace Classes___Assignment
                                 {
                                     Console.Write("Error, Invalid Input in first name, re-enter input: ");
                                     validInput = true;
-                                }                                  
+                                }
                             }
 
 
@@ -172,7 +172,7 @@ namespace Classes___Assignment
                         else
                         {
                             Console.WriteLine("Student Already Exists, Student Will not be Added.");
-                        }    
+                        }
                     }
                     else if (selection == 4)
                     {
@@ -181,10 +181,32 @@ namespace Classes___Assignment
 
                         for (int i = 1; i < students.Count() + 1; i++)
                         {
-                            Console.WriteLine($"{i}. {students[i - 1]}");
+                            Console.WriteLine($"{i}. {students[i - 1]}, Student Number: {students[i - 1].StudentNumber}.");
                         }
 
                         Console.WriteLine();
+                        Console.Write("Type in the Student Number referring to the student you want to remove: ");
+
+                        if (int.TryParse(Console.ReadLine().Trim(), out studentRemove) && students.Exists(x => x.StudentNumber == studentRemove))
+                        {
+                          for (int i = 0; i < students.Count(); i++)
+                          {
+                                if (studentRemove == students[i].StudentNumber)
+                                {
+                                    fName = students[i].FirstName;
+                                    lName = students[i].LastName;
+                                    students.Remove(students[i]);
+                                }
+                          }
+
+                            Console.WriteLine($"{fName} {lName} has been kicked out of your class." );
+
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("This Student Number does not exist please try again.");
+                        }
                     }
                     else if (selection == 5)
                     {
@@ -192,7 +214,71 @@ namespace Classes___Assignment
                     }
                     else if (selection == 6)
                     {
+                        Console.WriteLine();
+                        Console.WriteLine("What would you like to edit from a student? ");
+                        Console.WriteLine("1. The First Name of a Student");
+                        Console.WriteLine("2. The Last Name of a Student");
+                        Console.WriteLine("3. Reset the Student number of a Student");
+                        Console.Write("Enter the integer corresponding with what you want to edit: ");
 
+                        if (int.TryParse(Console.ReadLine(), out editSelection))
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine("Your students include:");
+
+                            for (int i = 0; i < students.Count() ; i++)
+                            {
+                                Console.WriteLine($"{students[i]} + Student Number: {students[i].StudentNumber}.");
+                            }
+
+                            Console.Write("Enter the Student number corresponding with your selection: ");
+                            validInput = false;
+                            while (!validInput)
+                            {
+                                if (int.TryParse(Console.ReadLine().Trim(), out studentEdit) && students.Exists(x => x.StudentNumber == studentEdit))
+                                {
+                                    validInput = true;
+
+                                    for (int i = 0; i < students.Count(); i++)
+                                    {
+                                        if (studentEdit == students[i].StudentNumber)
+                                        {
+                                            studentIndex = i;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Write("Invalid student number, try again: ");
+                                }
+                            }
+
+
+                            if (editSelection == 1)
+                            {
+
+                            }
+                            else if (editSelection == 2)
+                            {
+
+
+                            }
+                            else if (editSelection == 3)
+                            {
+                                students[studentIndex].ResetStudentNumber();
+                                Console.WriteLine($"{students[studentIndex]}'s Student number has been remade, his new student number is: {students[studentIndex].StudentNumber}.");
+                                
+                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("ERROR");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Input invalid, try again.");
+                        }
                     }
                     else if (selection == 7)
                     {

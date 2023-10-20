@@ -26,7 +26,7 @@ namespace Making_a_Class
             GenerateEmail();
         }
 
-        // Getter, Setters
+        // Getters, Setters
 
         public string FirstName
         {
@@ -92,7 +92,7 @@ namespace Making_a_Class
 
         public void ResetStudentNumber()
         {
-            this._studentId = generator.Next(100, 1000);
+            this._studentId = 555000 + generator.Next(100, 1000);
             GenerateEmail();
         }
 
