@@ -8,6 +8,7 @@ namespace Making_a_Class
 {
     class Student: IComparable<Student>
     {
+        List<int> usedNumbers = new List<int>(); // Makes sure Student number can't be repeated.
         private static Random generator = new Random();
         private string _firstName;
         private string _lastName;
@@ -19,10 +20,18 @@ namespace Making_a_Class
 
         public Student(string firstName, string lastName)
         {
+
             this._firstName = firstName.ToUpper();
             this._lastName = lastName.ToUpper();
-            this._studentId = generator.Next(100, 1000) + 555000;
-            this._age = generator.Next(14, 19);
+            this._studentId = generator.Next(100, 1000);
+            while (usedNumbers.Contains(_studentId))
+            {
+                this._studentId = generator.Next(100, 1000);
+            }
+            usedNumbers.Add(_studentId);
+            this._studentId += 555000;
+
+            this._age = generator.Next(14, 19);     
             GenerateEmail();
         }
 
@@ -80,7 +89,10 @@ namespace Making_a_Class
             {
                 return _age;
             }
-
+            set // Makes it so user can change value
+            {
+                this._age = value;
+            }
         }
         
         // Methods
@@ -92,7 +104,13 @@ namespace Making_a_Class
 
         public void ResetStudentNumber()
         {
-            this._studentId = 555000 + generator.Next(100, 1000);
+            this._studentId = generator.Next(100, 1000);
+            while (usedNumbers.Contains(_studentId))
+            {
+                this._studentId = generator.Next(100, 1000);
+            }
+            usedNumbers.Add(_studentId);
+            this._studentId += 555000;
             GenerateEmail();
         }
 

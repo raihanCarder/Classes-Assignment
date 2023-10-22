@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +20,8 @@ namespace Classes___Assignment
             char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
             string fName = "", lName = "";
-            int selection = 0, studentIndex = 0, studentRemove = 0, editSelection = 0, studentEdit = 0;
-            bool quit = false, exists = false, validInput = false, newInput = true;
+            int selection = 0, studentIndex = 0, studentRemove = 0, editSelection = 0, studentEdit = 0, age = 0, searchSelection = 0, studentId = 0, searchResults = 0;
+            bool quit = false, exists = false, validInput = false, newInput = true, searchEngine = false;
 
             students.Add(new Student("Andrew", "Monteith"));
             students.Add(new Student("Jack", "Eitel"));
@@ -168,6 +170,22 @@ namespace Classes___Assignment
                         {
                             students.Add(new Student(fName, lName));
                             Console.WriteLine("Student Added");
+                            Console.Write("How Old is this student? ");
+                            validInput = false;
+                            while (validInput == false)
+                            {
+                                if (int.TryParse(Console.ReadLine().Trim(), out age) && age >= 14 && age <= 19)
+                                {
+                                    students[students.Count() - 1].StudentAge = age;
+                                    validInput = true;
+                                    Console.WriteLine("Student's age added to database.");
+                                }
+                                else
+                                {
+                                    Console.Write("Invalid age entered student must be between 14-19 years old: ");
+                                }
+                            }
+                            validInput = false;
                         }
                         else
                         {
@@ -210,6 +228,145 @@ namespace Classes___Assignment
                     }
                     else if (selection == 5)
                     {
+                        searchEngine = false;
+
+                        while (searchEngine == false)
+                        {
+                            searchResults = 0;
+
+                            Console.Clear();
+                            Console.WriteLine("Welcome to this Programs Search Engine");
+                            Console.WriteLine();
+                            Console.WriteLine("Their are many ways to search for certain students, which would you like to search by: ");
+                            Console.WriteLine("1. First Name");
+                            Console.WriteLine("2. Last Name");
+                            Console.WriteLine("3. Age");
+                            Console.WriteLine("4. Student Number");
+                            Console.WriteLine("5. Email");
+                            Console.WriteLine("6. Quit the Search Engine");
+                            Console.WriteLine("7. Reveal all Information for Each Student"); // Just so you can see that the program works.
+                            Console.Write("Type the integer corresponding with your search: ");
+
+                            if (int.TryParse(Console.ReadLine().Trim(), out searchSelection) && searchSelection >= 1 && searchSelection <= 7)
+                            {
+                                Console.WriteLine();
+
+                                if (searchSelection == 1)
+                                {
+                                    Console.Write("Enter the First Name of the student you're searching for: ");
+                                    fName = Console.ReadLine().Trim().ToUpper();
+
+                                    for (int i = 0; i < students.Count(); i++)
+                                    {
+
+                                    }
+                                    
+                                }
+                                else if (searchSelection == 2)
+                                {
+
+                                }
+                                else if (searchSelection == 3)
+                                {
+                                    Console.Write("Enter the age of the student (14-19) you're searching for: ");
+                                    if (int.TryParse(Console.ReadLine().Trim(), out age) && age >= 14 && age <= 19)
+                                    {
+                                        Console.WriteLine();
+                                        Console.WriteLine($"The Students who are {age} years old are: ");
+                                        for (int i = 0; i < students.Count(); i++)
+                                        {
+                                            if (students[i].StudentAge == age)
+                                            {
+                                                Console.WriteLine(students[i]);
+                                                searchResults += 1;
+                                            }
+                                        }
+                                        Console.WriteLine();
+                                        if (searchResults == 0)
+                                        {
+                                            Console.WriteLine($"No students of {age} years old found.");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Error, Invalid Age.");
+                                    }
+
+                                    Console.WriteLine();
+                                    Console.Write("Click 'Enter' to Continue");
+                                    Console.ReadLine();
+                                }
+                                else if (searchSelection == 4)
+                                {
+                                    Console.Write("Enter the Student Number of the student you're searching for ex; (555xxx): ");
+                                    if (int.TryParse(Console.ReadLine().Trim(), out studentId))
+                                    {
+                                        Console.WriteLine();
+                                        Console.WriteLine($"The Student who has that student number is: ");
+                                        for (int i = 0; i < students.Count(); i++)
+                                        {
+                                            if (students[i].StudentNumber == studentId)
+                                            {
+                                                Console.WriteLine(students[i]);
+                                                searchResults += 1;
+                                            }
+                                        }
+
+                                        Console.WriteLine();
+
+                                        if (searchResults == 0)
+                                        {
+                                            Console.WriteLine($"No S" +
+                                                $"tudents with student number {studentId} Found.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Error, Invalid Student Number.");
+                                    }
+
+                                    Console.WriteLine();
+                                    Console.Write("Click 'Enter' to Continue");
+                                    Console.ReadLine();
+                                }
+                                else if (searchSelection == 5)
+                                {
+
+                                }
+                                else if (searchSelection == 6)
+                                {
+                                    searchEngine = true;
+                                }
+                                else if (searchSelection == 7)
+                                {
+                                    Console.WriteLine("Here's all the details of each student:");
+                                    Console.WriteLine();
+                                    for (int i = 0; i < students.Count(); i++)
+                                    {
+                                        Console.WriteLine($"{students[i]}: Student Number: {students[i].StudentNumber}, Age: {students[i].StudentAge}, Email: {students[i].Email}");
+                                    }
+
+                                    Console.WriteLine();
+                                    Console.Write("Click 'Enter' to Continue");
+                                    Console.ReadLine();
+                                   
+                                }
+                                else
+                                {
+                                    Console.WriteLine("ERROR");
+                                }
+                              
+                            }
+                            else
+                            {
+                                Console.WriteLine("Error Invalid Selection.");
+                                Console.WriteLine();
+                                Console.Write("Click 'Enter' to Continue");
+                                Console.ReadLine();
+                            }                        
+                        }
+
 
                     }
                     else if (selection == 6)
@@ -221,7 +378,7 @@ namespace Classes___Assignment
                         Console.WriteLine("3. Reset the Student number of a Student");
                         Console.Write("Enter the integer corresponding with what you want to edit: ");
 
-                        if (int.TryParse(Console.ReadLine(), out editSelection))
+                        if (int.TryParse(Console.ReadLine().Trim(), out editSelection))
                         {
                             Console.WriteLine();
                             Console.WriteLine("Your students include:");
@@ -256,19 +413,73 @@ namespace Classes___Assignment
 
                             if (editSelection == 1)
                             {
+                                Console.Write("Enter the new first name for this student: ");
+
+                                validInput = false;
+
+                                while (validInput == false)
+                                {
+                                    fName = Console.ReadLine().Trim().ToUpper();
+
+                                    for (int i = 0; i < fName.Length; i++)
+                                    {
+                                        if (!alphabet.Contains(fName[i]))
+                                        {
+                                            Console.Write("Error, Invalid Input in First name, re-enter input: ");
+                                            validInput = true;
+                                        }
+                                    }
+
+                                    if (!validInput)
+                                    {
+                                        validInput = true;
+                                    }
+                                    else
+                                    {
+                                        validInput = false;
+                                    }
+
+                                }
+                                students[studentIndex].FirstName = fName;
+                                Console.WriteLine("First name succesfully edited.");
 
                             }
                             else if (editSelection == 2)
                             {
+                                Console.Write("Enter the new Last name for this student: ");
 
+                                validInput = false;
 
+                                while (validInput == false)
+                                {
+                                    lName = Console.ReadLine().Trim().ToUpper();
+
+                                    for (int i = 0; i < lName.Length; i++)
+                                    {
+                                        if (!alphabet.Contains(lName[i]))
+                                        {
+                                            Console.Write("Error, Invalid Input in Last name, re-enter input: ");
+                                            validInput = true;
+                                        }
+                                    }
+
+                                    if (!validInput)
+                                    {
+                                        validInput = true;
+                                    }
+                                    else
+                                    {
+                                        validInput = false;
+                                    }
+
+                                }
+                                students[studentIndex].LastName = lName;
+                                Console.WriteLine("Last name succesfully edited.");
                             }
                             else if (editSelection == 3)
                             {
                                 students[studentIndex].ResetStudentNumber();
-                                Console.WriteLine($"{students[studentIndex]}'s Student number has been remade, his new student number is: {students[studentIndex].StudentNumber}.");
-                                
-                                
+                                Console.WriteLine($"{students[studentIndex]}'s Student number has been remade, his new student number is: {students[studentIndex].StudentNumber}.");                                                           
                             }
                             else
                             {
