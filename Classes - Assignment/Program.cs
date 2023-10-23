@@ -242,9 +242,8 @@ namespace Classes___Assignment
                             Console.WriteLine("2. Last Name");
                             Console.WriteLine("3. Age");
                             Console.WriteLine("4. Student Number");
-                            Console.WriteLine("5. Email");
-                            Console.WriteLine("6. Quit the Search Engine");
-                            Console.WriteLine("7. Reveal all Information for Each Student"); // Just so you can see that the program works.
+                            Console.WriteLine("5. Quit the Search Engine");
+                            Console.WriteLine("6. Reveal all Information for Each Student"); // Just so you can see that the program works.
                             Console.Write("Type the integer corresponding with your search: ");
 
                             if (int.TryParse(Console.ReadLine().Trim(), out searchSelection) && searchSelection >= 1 && searchSelection <= 7)
@@ -255,16 +254,47 @@ namespace Classes___Assignment
                                 {
                                     Console.Write("Enter the First Name of the student you're searching for: ");
                                     fName = Console.ReadLine().Trim().ToUpper();
+                                    Console.WriteLine($"Students with the first name {fName} is/are: ");
 
                                     for (int i = 0; i < students.Count(); i++)
                                     {
-                                        //if ()
+                                        if (fName == students[i].FirstName)
+                                        {
+                                            Console.WriteLine(students[i]);
+                                            searchResults += 1;
+                                        }
                                     }
-                                    
+                                    if (searchResults == 0)
+                                    {
+                                        Console.WriteLine($"No students of {fName} first name found.");
+                                    }
+
+                                    Console.WriteLine();
+                                    Console.Write("Click 'Enter' to Continue");
+                                    Console.ReadLine();
                                 }
                                 else if (searchSelection == 2)
                                 {
+                                    Console.Write("Enter the Last Name of the student you're searching for: ");
+                                    lName = Console.ReadLine().Trim().ToUpper();
+                                    Console.WriteLine($"Students with the first name {lName} is/are: ");
 
+                                    for (int i = 0; i < students.Count(); i++)
+                                    {
+                                        if (lName == students[i].LastName)
+                                        {
+                                            Console.WriteLine(students[i]);
+                                            searchResults += 1;
+                                        }
+                                    }
+                                    if (searchResults == 0)
+                                    {
+                                        Console.WriteLine($"No students of {lName} first name found.");
+                                    }
+
+                                    Console.WriteLine();
+                                    Console.Write("Click 'Enter' to Continue");
+                                    Console.ReadLine();
                                 }
                                 else if (searchSelection == 3)
                                 {
@@ -300,7 +330,7 @@ namespace Classes___Assignment
                                 else if (searchSelection == 4)
                                 {
                                     Console.Write("Enter the Student Number of the student you're searching for ex; (555xxx): ");
-                                    if (int.TryParse(Console.ReadLine().Trim(), out studentId))
+                                    if (int.TryParse(Console.ReadLine().Trim(), out studentId) && studentId >=555000 && studentId<556000)
                                     {
                                         Console.WriteLine();
                                         Console.WriteLine($"The Student who has that student number is: ");
@@ -318,13 +348,14 @@ namespace Classes___Assignment
                                             Console.WriteLine($"No S" +
                                                 $"tudents with student number {studentId} Found.");
                                         }
-                                       
+
+                                        Console.WriteLine();
                                         Console.WriteLine("Students within a 200 range of that student number is/are: ");
                                         for (int i = 0; i < students.Count(); i++)
                                         {
                                             if (students[i].StudentNumber >= studentId-200 && students[i].StudentNumber <= studentId + 200)
                                             {
-                                                Console.WriteLine(students[i]);
+                                                Console.WriteLine($"{students[i]}, Student Number: {students[i].StudentNumber}.");
                                             }
                                         }
 
@@ -341,13 +372,9 @@ namespace Classes___Assignment
                                 }
                                 else if (searchSelection == 5)
                                 {
-
-                                }
-                                else if (searchSelection == 6)
-                                {
                                     searchEngine = true;
                                 }
-                                else if (searchSelection == 7)
+                                else if (searchSelection == 6)
                                 {
                                     Console.WriteLine("Here's all the details of each student:");
                                     Console.WriteLine();
