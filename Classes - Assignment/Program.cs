@@ -60,7 +60,7 @@ namespace Classes___Assignment
                     else if (selection == 2)
                     {
                         Console.WriteLine();
-                        Console.WriteLine("Which student's details would you like to accsess: ");
+                        Console.WriteLine("Which student's details would you like to access: ");
                         Console.WriteLine();
 
                         for (int i = 1; i < students.Count() + 1; i++)
@@ -258,7 +258,7 @@ namespace Classes___Assignment
 
                                     for (int i = 0; i < students.Count(); i++)
                                     {
-
+                                        //if ()
                                     }
                                     
                                 }
@@ -310,16 +310,25 @@ namespace Classes___Assignment
                                             {
                                                 Console.WriteLine(students[i]);
                                                 searchResults += 1;
-                                            }
+                                            }                             
                                         }
-
-                                        Console.WriteLine();
 
                                         if (searchResults == 0)
                                         {
                                             Console.WriteLine($"No S" +
                                                 $"tudents with student number {studentId} Found.");
                                         }
+                                       
+                                        Console.WriteLine("Students within a 200 range of that student number is/are: ");
+                                        for (int i = 0; i < students.Count(); i++)
+                                        {
+                                            if (students[i].StudentNumber >= studentId-200 && students[i].StudentNumber <= studentId + 200)
+                                            {
+                                                Console.WriteLine(students[i]);
+                                            }
+                                        }
+
+                                        Console.WriteLine();
                                     }
                                     else
                                     {
